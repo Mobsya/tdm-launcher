@@ -6,7 +6,9 @@ The Thymio Device Manager doesn't require any modification.
 
 ## macOS
 
-The application is implemented in Swift. As a command-line program, it can be compiled with the `swiftc` compiler. It expects a command `tdm` in the same directory. This can be bundled as a standard self-contained Mac application in a `.app` directory.
+The application is implemented in Swift. As a command-line program, it can be compiled with the `swiftc` compiler. It expects a command `thymio-device-manager` in the same directory. This can be bundled as a standard self-contained Mac application in a `.app` directory.
+
+At startup, the application kills thymio-device-manager if it's already running and discards its lock file if it exists.
 
 ## Windows
 

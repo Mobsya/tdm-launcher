@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var process: Process? = nil
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        killCurrentTDM()
         launchTDM()
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         setIcon(process != nil)
@@ -86,10 +87,37 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     }
 
+    @discardableResult
+    func killCurrentTDM() -> Int32 {
+        let shellProcess = Process()
+        shellProcess.executableURL = URL(fileURLWithPath: "/bin/bash")
+        /* lockfile path: see the definitions of lock_file_path
+           in aseba/aseba/thymio-device-manager/main.cpp
+           and of method boost::filesystem::temp_directory_path()
+           in boost source code filesystem/src/operations.cpp
+        */
+        shellProcess.arguments = [
+            "-c",
+            """
+            killall thymio-device-manager;
+            d=$TMPDIR || $TMP || $TEMP || $TEMPDIR;
+            p="$d/mobsya-tdm-0accdcbf-eeb2";
+            if [ -f "$p" ]; then rm -f "$p"; fi
+            """
+        ]
+        do {
+            try shellProcess.run()
+            shellProcess.waitUntilExit()
+            return shellProcess.terminationStatus
+        } catch {
+            return 2
+        }
+    }
+
     func launchTDM() {
         self.process = Process()
         if let process = self.process {
-            process.executableURL = URL(fileURLWithPath: "tdm")
+            process.executableURL = URL(fileURLWithPath: "thymio-device-manager")
             process.terminationHandler = { (process) in
                 self.process = nil
                 self.setIcon(false)
