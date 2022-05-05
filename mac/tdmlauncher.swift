@@ -115,9 +115,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func launchTDM() {
+        let tdmURL = Bundle.main.url(forAuxiliaryExecutable: "thymio-device-manager")
         self.process = Process()
         if let process = self.process {
-            process.executableURL = URL(fileURLWithPath: "thymio-device-manager")
+            process.executableURL = tdmURL
             process.terminationHandler = { (process) in
                 self.process = nil
                 self.setIcon(false)
