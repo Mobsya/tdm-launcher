@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleName</key>
+	<string>Thymio Device Manager</string>
 	<key>CFBundleExecutable</key>
 	<string>tdmlauncher</string>
 	<key>NSHumanReadableCopyright</key>
@@ -10,5 +12,9 @@
 	<true/>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleIconFile</key>
+	<string>org.mobsya.ThymioDeviceManager.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>org.mobsya.TDMLauncher</string>
 </dict>
 </plist>

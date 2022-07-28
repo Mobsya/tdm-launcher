@@ -16,4 +16,7 @@ tdmlauncher.app: tdmlauncher thymio-device-manager Info.plist
 	cp Info.plist $@/Contents
 	cp tdmlauncher $@/Contents/MacOS
 	cp thymio-device-manager $@/Contents/MacOS
+	mkdir -p $@/Contents/Resources
+	cp org.mobsya.ThymioDeviceManager.icns $@/Contents/Resources
+	mv $@ "ThymioDeviceManager.app"
 
